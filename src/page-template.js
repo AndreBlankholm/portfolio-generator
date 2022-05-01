@@ -1,6 +1,6 @@
 
  module.exports = templateData => {    // change the template literal data to use properties of templateData instead of the individual parameters
-  const { projects, about, ...header } = templateData;
+  const { projects, about } = templateData;
   console.log(templateData);
 
   return `
