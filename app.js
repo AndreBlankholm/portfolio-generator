@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
-// const fs = require('fs');
-// const generatePage = require('./src/page-template.js');
+const fs = require('fs');
+const generatePage = require('./src/page-template.js');
 
 // const [name, github] = profileDataArgs;
 
@@ -65,7 +65,7 @@ const promptProject = (portfolioData) => {
 
   if (!portfolioData.projects) {
     //guarantee the array is initialized only on the first pass stores the object answers in an array
-    portfolioData = []; // this is the data collection system in place
+    portfolioData.projects = []; // this is the data collection system in place
   }
 
   console.log(`
@@ -130,7 +130,7 @@ const promptProject = (portfolioData) => {
       name: "confirmAddProject", //
       message: "Would you like to enter another project?",
       default: false,
-    },
+    }
 
   ])
 
@@ -146,9 +146,14 @@ const promptProject = (portfolioData) => {
 
 };
 
-promptUser() // chaining thefunction call to the .then(), we can control the sequence of the applications control flow
-  .then(promptProject)
-  .then(portfolioData => {
-    console.log(portfolioData);
-  });
 
+const pageHTML = generatePage(mockData);  //mock data/ needs to be removed
+// promptUser()
+ // .then(promptProject)
+ // .then(portfolioData => {
+  //   const pageHTML = generatePage();
+
+    // fs.writeFile('./index.html', pageHTML, err => {
+    //   if (err) throw new Error(err);
+  
+ // });
