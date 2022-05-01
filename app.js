@@ -16,7 +16,15 @@ const promptUser = () => {
     {
       type: "input",
       name: "name",
-      message: "What is your name?",
+      message: "What is your name? (Required)",
+      validate: nameInput => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log('Please enter your name!');
+          return false;  // the user receives a message and is prompted with the same question until an answer is received.
+        }
+      }
     },
     {
       type: "input",
