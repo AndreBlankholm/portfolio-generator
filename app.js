@@ -29,12 +29,33 @@ const promptUser = () => {
     {
       type: "input",
       name: "github",
-      message: "Enter your GitHub Username",
+      message: "Enter your GitHub Username (Required)",
+      validate: githubInput => {
+        if (githubInput) {
+          return true;
+        } else {
+          console.log('Please enter your GitHub Username!');
+          return false;  // the user receives a message and is prompted with the same question until an answer is received.
+        }
+      }
+    },
+    {
+      type: 'confirm',
+      name: 'confirmAbout',
+      message: 'Would you like to enter some information about yourself for an "About" section?',  // do you want to add an about me section and uses the name: key value confirmAbout"
+      default: true
     },
     {
       type: "input",
       name: "about",
       message: "Provide some information about yourself:",
+      when: ({confirmAbout}) => {   //when is listening for a true answer on the confirmAbout respose and passes all the answers givin so far in the object
+        if(confirmAbout) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     },
   ]);
 };
@@ -62,6 +83,14 @@ const promptProject = (portfolioData) => {
       type: "input",
       name: "description",
       message: "Provide a description of the project (Required)",
+      validate: discriptionInput => {
+        if (discriptionInput) {
+          return true;
+        } else {
+          console.log('Please enter your description of your project!');
+          return false;  // the user receives a message and is prompted with the same question until an answer is received.
+        }
+      }
     },
     {
       type: "checkbox",
@@ -81,6 +110,14 @@ const promptProject = (portfolioData) => {
       type: "input",
       name: "link",
       message: "Enter the GitHub link to your project. (Required)",
+      validate: githubLinkInput => {
+        if (githubLinkInput) {
+          return true;
+        } else {
+          console.log('Please enter link to your project!');
+          return false;  // the user receives a message and is prompted with the same question until an answer is received.
+        }
+      }
     },
     {
       type: "confirm",
@@ -104,7 +141,7 @@ const promptProject = (portfolioData) => {
       return promptProject(portfolioData); 
     } else {
       return portfolioData;  // return the information they added so far
-    }
+    };
   });
 
 };
@@ -114,3 +151,4 @@ promptUser() // chaining thefunction call to the .then(), we can control the seq
   .then(portfolioData => {
     console.log(portfolioData);
   });
+
